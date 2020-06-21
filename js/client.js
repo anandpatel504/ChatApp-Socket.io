@@ -39,15 +39,6 @@ socket.on('left', name =>{
     append(`${name} left the chat`, 'right')
 })
 
-// //is typing...
-// let messageInput = document.getElementById("message");
-// let typing = document.getElementById("typing");
-
-// //isTyping event
-// messageInput.addEventListener("keypress", () => {
-//   socket.emit("typing", { user: "Someone", message: "is typing..." });
-// });
-
 // If the form gets submitted, send server the message
 form.addEventListener('submit', (e)=>{
     e.preventDefault();

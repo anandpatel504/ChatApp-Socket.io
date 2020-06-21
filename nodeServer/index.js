@@ -1,8 +1,14 @@
 const express = require('express');
 const app = express();
-const http = require("http");
-const io = require('socket.io')(3031);
+const socket = require('socket.io');
 const users = {};
+const PORT = process.env.PORT || 3031;
+
+server = app.listen(PORT, () => {
+    console.log("Running on Port: " + PORT);
+});
+
+const io = socket(server);
 
 io.on('connection', socket =>{
     // If any new user joins, let other connected to the server know!
@@ -22,30 +28,7 @@ io.on('connection', socket =>{
         socket.broadcast.emit('left', users[socket.id]);
         delete users[socket.id];
     });
-
-//         //Someone is typing
-//     socket.on("typing", data => {
-//         socket.broadcast.emit("notifyTyping", {
-//         user: data.user,
-//         message: data.message
-//         });
-//     });
-
-//     //when soemone stops typing
-//     socket.on("stopTyping", () => {
-//         socket.broadcast.emit("notifyStopTyping");
-//     });
-
-//     socket.on('display', (data)=>{
-//         if(data.typing==true)
-//           $('.typing').text(`${data.user} is typing...`)
-//         else
-//           $('.typing').text("")
-//       })
 })
 
-// // app listener
-// http.listen(PORT, () => {
-//     console.log("Running on Port: " + PORT);
-//   });
+
   
